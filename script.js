@@ -7,10 +7,10 @@ const allSections = document.querySelectorAll('.main-content');
 //Button click active class
 function PageTransitions(){
     for(let i = 0; i < sectBtn.length; i++){
-        sectBtn[i].addEventListener('click', () =>{
+        sectBtn[i].addEventListener('click', function(){
             let currBtn = document.querySelectorAll('.active-btn');
-            currBtn[0].classList = currBtn[0].className.replace('active-btn',"")
-            this.className += 'active-btn'
+            currBtn[0].className = currBtn[0].className.replace('active-btn',"")
+            this.className += ' active-btn';
         })
     }
 }
