@@ -19,7 +19,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 //reference contactInfo collections
-let contactInfo = firebase.database().ref("contactForm");
+const contactInfo = firebase.database().ref("contactForm");
 
 
 //contact form
@@ -28,23 +28,26 @@ function submitForm(e){
     //e.preventDefault();
     //get user input values
 
-    //let name = document.querySelector(".name").value;
-    let subject = document.querySelector(".subject").value;
+    let name = document.querySelector(".username").value;
     let email = document.querySelector(".email").value;
+    let subject = document.querySelector(".subject").value;
     let message = document.querySelector(".message").value;
-    console.log(name,subject,email,message)
-    saveContactInfo(name,subject,email,message);
+    console.log(name,email,subject,message)
+    
+    saveContactInfo(name,email,subject,message);
+
+    document.querySelector(".contact-form").reset();
 }
 
 //save info to firebase
 
-function saveContactInfo(name,subject,email,message){
+function saveContactInfo(name,email,subject,message){
     let newContactInfo = contactInfo.push();
 
     newContactInfo.set({
         name: name,
-        subject: subject,
         email: email,
+        subject: subject,
         message: message
     });
 }
@@ -91,5 +94,5 @@ function PageTransitions(){
 }
 
 
-document.querySelector(".contact-form").addEventListener(".main-btn",submitForm);
+//document.querySelector(".contact-form").addEventListener(".main-btn",submitForm);
 PageTransitions();
