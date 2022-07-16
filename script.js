@@ -21,6 +21,10 @@ firebase.initializeApp(firebaseConfig);
 //reference contactInfo collections
 const contactInfo = firebase.database().ref("contactForm");
 
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
 
 //contact form
 //listen for a submit
@@ -32,11 +36,22 @@ function submitForm(e){
     let email = document.querySelector(".email").value;
     let subject = document.querySelector(".subject").value;
     let message = document.querySelector(".message").value;
-    console.log(name,email,subject,message)
-    
-    saveContactInfo(name,email,subject,message);
 
-    document.querySelector(".contact-form").reset();
+    if(validateEmail(email) && message){
+        saveContactInfo(name,email,subject,message);
+        document.querySelector(".contact-form").reset();
+        swal({
+            title: "Thank you!",
+            text: "I will be checking your email shortly.",
+            icon: "success",
+        });
+    } else{
+        swal({
+            title: "Oops..!",
+            text: "Please double check that your email is valid, and that you've left a message for me!",
+            icon: "error",
+          });
+    }
 }
 
 //save info to firebase
@@ -71,7 +86,7 @@ function PageTransitions(){
             sectBtns.forEach((btn) => {
                 btn.classList.remove('active')
             })
-            e.target.classList.add('active')
+            //e.target.classList.add('active')
 
             //hide other sections
             sections.forEach((section) =>{
